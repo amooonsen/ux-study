@@ -1,0 +1,25 @@
+body {
+  padding: 0 24px;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+.gallery-wrap ul {  
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 0 10px;
+}
+
+.gallery-wrap ul li {
+  width: 70px;
+  height: 70px;
+}
+
+.gallery-wrap ul li img {
+  width: 100% ;
+  height: 100%;
+}
+
