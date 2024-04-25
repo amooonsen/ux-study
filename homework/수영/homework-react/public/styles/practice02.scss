@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.gallery-wrap{
+  display: flex;
+}
+.modal{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width:500px;
+  padding: 30px;
+  height: auto;
+  border: 1px solid #000;
+  border-radius: 20px;
+  text-align: center;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 20px;
+  .tit{
+    font-size: 20px;
+    color: #fc8803;
+  }
+  button{
+    background-color: #fc8803;
+    color: #fff;
+  }
+  img{
+    width: 100%;
+  }
+}
