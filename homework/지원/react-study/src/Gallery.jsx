@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Gallery.css'; 
 
 
-export default function Practice02() {
+export default function Practice03() {
   const images = [
     '/img/img01.jpg', 
     '/img/img02.jpg',
