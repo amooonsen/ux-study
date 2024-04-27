@@ -1,0 +1,107 @@
+/* common */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn{
+  background: #fff;
+  appearance: none;
+  border: 1px solid #ddd;
+  padding: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border: 1px solid rgb(0, 197, 223);
+  color: rgb(0, 197, 223);
+}
+
+.overlay-content {
+  position: relative;
+  background-color: #fefefe;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  appearance: none;
+  border: 0;
+  background: 0;
+  color: #aaa;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+}
+
+
+/* menu */
+.menu-wrap {
+  height: 0;
+  transition: height 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+.menu-wrap.show {
+  height: 100%;
+}
+
+.menu-wrap .overlay-content {
+  width: 100%;
+  height: 100%;
+  background: none;
+}
+
+.menu-wrap ul {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  text-align: center;
+  list-style: none;
+}
+.menu-wrap ul li {
+  margin-bottom: 20px;
+}
+
+.menu-wrap ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.menu-wrap ul li a:hover {
+  text-decoration: underline;
+}
+
+
+/* modal */
+.modal-wrap .overlay-content p{
+  color: red;
+}
