@@ -6,6 +6,7 @@ const ToggleSwitch = () => {
   const handleToggle = () => {
     setisActive(!isActive);
   };
+  
 
   return (
     <div>
