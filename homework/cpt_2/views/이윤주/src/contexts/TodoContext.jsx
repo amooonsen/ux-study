@@ -22,7 +22,7 @@ export const TodoProvider = ({ children }) => {
   // 로컬 스토리지에 데이터 저장하기
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-    console.log(localStorage)
+    // console.log(localStorage)
   }, [todos]);
 
   const addTodo = (text) => {
@@ -59,7 +59,7 @@ export const TodoProvider = ({ children }) => {
   });
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, deleteTodo, toggleTodo, editTodo, filteredTodos, setFilter }}>
+    <TodoContext.Provider value={{ filter, todos, addTodo, deleteTodo, toggleTodo, editTodo, filteredTodos, setFilter }}>
       {children}
     </TodoContext.Provider>
   );
