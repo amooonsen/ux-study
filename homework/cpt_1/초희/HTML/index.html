@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework01 - Menu & Modal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="container">
+    <!-- Menu -->
+    <button class="btn menu-btn">Open Menu</button>
+    <section class="menu-wrap overlay">
+      <div class="overlay-content">
+        <button class="close-btn"><span class="close-icon">X</span></button>
+        <ul>
+          <li><a href="#">Menu1</a></li>
+          <li><a href="#">Menu2</a></li>
+          <li><a href="#">Menu3</a></li>
+          <li><a href="#">Menu4</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <button class="btn modal-btn">Open Modal</button>
+    <section class="modal-wrap overlay">
+      <div class="overlay-content">
+        <button class="close-btn"><span class="close-icon">X</span></button>
+        <h2>Milky's DeathNote</h2>
+        <p>조경문김수영임지원이유람이윤주 ㅋㅋ</p>
+      </div>
+    </section>
+  </div>
+
+  
+  <script>
+    const toggleOverlay = (overlaySelector, toggleBtnSelector) => {
+      const overlay = document.querySelector(overlaySelector);
+      const toggleBtn = document.querySelector(toggleBtnSelector);
+      const closeBtn = overlay.querySelector('.close-btn');
+
+      toggleBtn.addEventListener('click', () => {
+        const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        toggleBtn.setAttribute('aria-expanded', String(!expanded));
+        overlay.classList.toggle('show', !expanded);
+      });
+
+      closeBtn.addEventListener('click', () => {
+        overlay.classList.remove('show');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    toggleOverlay('.menu-wrap', '.menu-btn');
+    toggleOverlay('.modal-wrap', '.modal-btn');
+  </script>
+  
+</body>
+</html>
