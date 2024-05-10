@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { ImageContext } from '../contexts/ImageContext';
 
-export const ImageUpload = ({ onImageUpload }) => { // 이미지 업로드 기능
+export const ImageUpload = () => { // 이미지 업로드 기능
+	const { addImage } = useContext(ImageContext);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -11,8 +13,9 @@ export const ImageUpload = ({ onImageUpload }) => { // 이미지 업로드 기�
     if (selectedFile) {
 			//파일을 이미지 url로 바꿔주기
       const reader = new FileReader();
-      reader.onloadend = (e) => {
-				setSelectedFile(e.target?.result)
+      reader.onloadend = () => {
+				// setSelectedFile(e.target?.result)
+				addImage(reader.result)
         // onImageUpload(reader.result);
       };
       reader.readAsDataURL(selectedFile);
@@ -23,10 +26,6 @@ export const ImageUpload = ({ onImageUpload }) => { // 이미지 업로드 기�
     <div>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload</button>
-			{
-				selectedFile &&
-					<img src={selectedFile}/>
-			}
     </div>
   );
 };
