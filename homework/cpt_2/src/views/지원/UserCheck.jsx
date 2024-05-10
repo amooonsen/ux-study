@@ -1,36 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function UserCheck() {
-  // 사용자 상태 데이터를 저장할 상태 변수
-  const [userStatus, setUserStatus] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // API 호출을 위한 함수
-  const fetchUserStatus = async () => {
-    try {
-      const response = await fetch('https://your-api-endpoint.com/user/status');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setUserStatus(data); // 데이터를 상태 변수에 저장
-    } catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
-    }
+  useEffect(() => {
+    // JSONPlaceholder API에서 사용자 목록을 가져옴
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.error("에러용:", error);
+      });
+  }, []);
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
   };
 
-  // 컴포넌트가 마운트될 때 API 호출 초기화
-  useEffect(() => {
-    fetchUserStatus();
-  }, []); // 빈 배열을 두면 컴포넌트가 마운트될 때만 실행됩니다.
-
   return (
-    <div>
-      <h1>Realtime User Status</h1>
+    <div className="App">
+      <h1>안냐세요</h1>
       <ul>
-        {userStatus.map((status, index) => (
-          <li key={index}>{status}</li>
+        {users.map((user) => (
+          <li key={user.id} onClick={() => handleUserClick(user)}>
+            {user.name}
+          </li>
         ))}
       </ul>
+
+      {selectedUser && (
+        <div className="user-details">
+          <h2>{selectedUser.name}</h2>
+          <p>{selectedUser.email}</p>
+          <p>{selectedUser.phone}</p>
+        </div>
+      )}
     </div>
   );
 }
