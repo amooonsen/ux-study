@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Test from './views/윤주/Test'
+// import 초희 from './views/초희/main'
 
 function App() {
   const [count, setCount] = useState(0)
