@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+
+    <style>
+        .active {
+            visibility: visible !important;
+            opacity: 100 !important;
+            transition: all 0.3s;
+        }
+        .gnb-wrap {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .modal-wrap {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <button class="btn-open" onclick="openLayer('menu')">메뉴열기</button>
+        <div class="gnb-wrap" id="menu">
+            <ul>
+                <li>
+                    <a href="#">메뉴1</a>
+                    <a href="#">메뉴2</a>
+                    <a href="#">메뉴3</a>
+                </li>
+            </ul>
+            <button onclick="closeLayer('menu')">메뉴닫기</button>
+        </div>
+    </header>
+
+    <body>
+        <button class="open-modal-btn" onclick="openLayer('modal')">모달 열기</button>
+
+        <div class="modal-wrap" id="modal">
+            <button class="btn-close" onclick="closeLayer('modal')">모달 닫기</button>
+        </div>
+    </body>
+    
+
+
+    <script>
+        function openLayer(id) {
+            const target = document.getElementById(id);
+            target.classList.add('active');
+        }
+
+        function closeLayer(id) {
+            const target = document.getElementById(id);
+            target.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
