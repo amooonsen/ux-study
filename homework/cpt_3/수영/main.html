@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP ScrollTrigger Example</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+
+    body {
+        line-height: 1;
+    }
+
+    ol, ul {
+        list-style: none;
+    }
+
+    blockquote, q {
+        quotes: none;
+    }
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    .section {
+      position: relative;
+      height: 100vh;
+    }
+    .section.transition{
+      height: 100%;
+    }
+    .visual {
+      overflow: hidden;
+      border-radius: 4rem;
+      position: absolute;
+      bottom: -4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.7s cubic-bezier(0.26, -0.02, 0, 1.01);
+    }
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .content-section {
+      width : 100%;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    .content-section h2{
+      font-size: 120px;
+      font-weight: 700;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: all 0.7s cubic-bezier(0.26, -0.02, 0, 1.01);
+
+
+    }
+    .content-section p{
+      margin: 0;
+      padding: 0;
+      transition: all 0.7s cubic-bezier(0.26, -0.02, 0, 1.01);
+
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+     .content-section.transition {
+      width: 100%;
+      height: 45.37vh;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 15px 0;
+    }
+
+    .content-section.transition h2 {
+      font-size: 40px;
+      color: #fff;
+      opacity: 0.8;
+    }
+    .content-section.transition p{
+      font-size: 72px;
+      color: #fff;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="section">
+    <div class="visual">
+      <img class="bg-image" src="https://www.hyosungtnc.com/assets/images/common/photo/brand/brandstrategy/local-pc.jpg" alt="Background Image">
+    </div>
+    <div class="content-section content-txt">
+      <h2>Brand Strategy</h2>
+      <p>브랜드 체계</p>
+    </div>
+  </div>
+  <div class="content" style="height: 120vh;"></div>
+<!-- GSAP 및 ScrollTrigger 라이브러리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+<script>
+  // 참고사이트 ( 메인비주얼 스크롤 애니메이션 )
+  // https://www.hyosungtnc.com/kr/brand/brand-strategy/system
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector(".section");
+  const bgImage = document.querySelector(".visual");
+  const txtWrap = document.querySelector(".content-section");
+
+  const scrollTriggerSettings = {
+    trigger: ".section",
+    start: "top+=1px top",
+    end: "bottom bottom",
+    scrub: true,
+    pin: true,
+    pinSpacing: false,
+    onEnter: () => {
+      section.classList.add("transition");
+      txtWrap.classList.add("transition");
+    },
+    onLeaveBack: () => {
+      section.classList.remove("transition");
+      txtWrap.classList.remove("transition");
+    }
+  };
+
+  // bgImage 애니메이션
+  gsap.fromTo(bgImage, 
+    {
+      width: "60%",
+      maxWidth: "1160px",
+      height: "54vh",
+      bottom: "-4rem",
+      borderRadius: "4rem",
+    },
+    {
+      width: "100%",
+      maxWidth: "100%",
+      height: "45.37vh",
+      bottom: "auto",
+      top: 0,
+      borderRadius: "0",
+      duration: 0.7,
+      ease: "power3.inOut",
+      scrollTrigger: scrollTriggerSettings
+    }
+  );
+
+  // txtWrap 애니메이션
+  gsap.fromTo(txtWrap, 
+    {
+      position: "absolute",
+      top: "20.37vh",
+    },
+    {
+      ease: "power3.inOut",
+      position: "absolute",
+      top: "24.2%",
+      scrollTrigger: scrollTriggerSettings
+    }
+  );
+</script>
+
+</body>
+</html>
