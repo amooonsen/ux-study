@@ -1,74 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
-// 	gsap.registerPlugin(ScrollTrigger, Observer);
-
-// 	// function slideSection() {
-// 	// 	const $slideSection = document.querySelector('.slide-container')
-// 	// 	if (!$slideSection) return;
-
-// 	// 	let allowScroll = false;
-
-// 	// 	let intentObserver = ScrollTrigger.observe({
-// 	// 		type: "wheel, touch, pointer",
-// 	// 		onUp: (e) => {
-// 	// 			console.log('up',e)
-// 	// 		},
-// 	// 		onDown: (e) => {
-// 	// 			console.log('down',e)
-// 	// 		},
-// 	// 		tolerance: 10,
-// 	// 		// preventDefault: true,
-// 	// 		onChangeY() {
-// 	// 		},
-// 	// 		onEnable(self) {
-// 	// 			// allowScroll = false;
-// 	// 			// let savedScroll = self.scrollY();
-// 	// 			// self._restoreScroll = () => self.scrollY(savedScroll);
-// 	// 			// document.addEventListener("scroll", self._restoreScroll, { passive: false });
-// 	// 		},
-// 	// 	});
-// 	// 	// intentObserver.disable();
-
-// 	// 	function gotoPanel() {
-// 	// 		// gsap.to()
-// 	// 	}
-
-// 	// 	ScrollTrigger.create({
-// 	// 		trigger: '.slide-container',
-// 	// 		pin: true,
-// 	// 		start: 'top top',
-// 	// 		end:'+=50%',
-// 	// 		onEnter: (self) => {
-// 	// 			console.log(self)
-// 	// 		},
-// 	// 		onEnterBack: (self) => {
-// 	// 			console.log(self)
-// 	// 		}
-// 	// 	})
-
-// 	// 	// const context = gsap.context((contextSelf) => {
-// 	// 	// 	const tl = gsap.timeline({})
-// 	// 	// 	const $slides = contextSelf.selector('.slide')
-
-// 	// 	// 	tl.set($slides, {xPercent: -100, opacity: 0})
-// 	// 	// 	// gsap.fromTo($slides, {
-// 	// 	// 	// 	alpha: 0,
-// 	// 	// 	// }, {
-// 	// 	// 	// 	alpha: 1,
-// 	// 	// 	// 	scrollTrigger: {
-// 	// 	// 	// 		trigger: $slideSection,
-// 	// 	// 	// 		start: 'top top',
-// 	// 	// 	// 		end: '+= bottom',
-// 	// 	// 	// 		markers: true,
-// 	// 	// 	// 		pin: true,
-// 	// 	// 	// 	}
-// 	// 	// 	// })
-// 	// 	// }, $slideSection)
-
-// 	// }
-
-// 	// slideSection();
-// })
-
 gsap.registerPlugin(ScrollTrigger);
 
 // Gsap Code
@@ -84,6 +13,11 @@ gsap.set(swipePanels, {
   zIndex: i => i
 });
 
+gsap.set('.split-txt', {
+  autoAlpha: 0,
+  y: 30,
+})
+
 // create an observer and disable it to start
 let intentObserver = ScrollTrigger.observe({
   type: "wheel,touch",
@@ -92,20 +26,16 @@ let intentObserver = ScrollTrigger.observe({
   wheelSpeed: -1, // to match mobile behavior, invert the wheel speed
   tolerance: 10,
   preventDefault: true,
-  // onPress: self => {
-  //   // on touch devices like iOS, if we want to prevent scrolling, we must call preventDefault() on the touchstart (Observer doesn't do that because that would also prevent side-scrolling which is undesirable in most cases)
-  //   ScrollTrigger.isTouch && self.event.preventDefault()
-  // }
 })
 intentObserver.disable();
 
 let preventScroll = ScrollTrigger.observe({
-			preventDefault: true,
-			type: "wheel,scroll",
-			allowClicks: true,
-			onEnable: self => self.savedScroll = self.scrollY(), // save the scroll position
-			onChangeY: self => self.scrollY(self.savedScroll)    // refuse to scroll
-		});
+    preventDefault: true,
+    type: "wheel,scroll",
+    allowClicks: true,
+    onEnable: self => self.savedScroll = self.scrollY(), // save the scroll position
+    onChangeY: self => self.scrollY(self.savedScroll)    // refuse to scroll
+  });
 preventScroll.disable();
 
 // handle the panel swipe animations
@@ -126,14 +56,20 @@ function gotoPanel(index, isScrollingDown) {
 
   //   target the second panel, last panel?
   let target = isScrollingDown ? swipePanels[index] : swipePanels[currentIndex];
+  let tl = gsap.timeline({})
 
-  gsap.to(target, {
+  tl.to(target, {
     xPercent: isScrollingDown ? 0 : 100,
     duration: 0.75,
     onComplete: () => {
       animating = false;
     }
   });
+  tl.to(target.querySelectorAll('.split-txt'), {
+    autoAlpha: 1,
+    y: 0,
+    stagger: 0.2,
+  })
   currentIndex = index;
 }
 
