@@ -58,7 +58,7 @@ const Practice01 = () => {
     <div>
       <div>
       <div>{count}</div>
-      <button onClick={handleIncrement} disabled={count > 10}>
+      <button onClick={handleIncrement} disabled={count >= 10}>
         + 증가
       </button>
       <button onClick={handleDecrement} disabled={count <= 0}>
