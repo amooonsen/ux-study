@@ -1,43 +1,61 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .navbar {
-    background-color: #333;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .hamburger-icon {
-    display: inline-block;
-    cursor: pointer;
-    font-size: 24px;
-    color: white;
-    padding: 14px 16px;
-  }
-  
-  .menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: none; /* 기본적으로 숨김 */
-  }
-  
-  .menu.open {
-    display: block; /* 햄버거 메뉴 클릭 시 표시 */
-  }
-  
-  .menu li {
-    padding: 8px 16px;
-  }
-  
-  .menu li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .menu li a:hover {
-    background-color: #575757;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  position: relative;
+}
+
+.hamburger-icon {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  padding: 14px 16px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-icon:hover {
+  transform: rotate(90deg); /* 아이콘을 회전시킴 */
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-in-out; /* 슬라이드 인/아웃 애니메이션 */
+}
+
+.menu.open {
+  max-height: 300px; /* 메뉴가 열릴 때 최대 높이 설정 */
+}
+
+.menu li {
+  padding: 8px 16px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.menu.open li {
+  opacity: 1;
+}
+
+.menu li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu li a:hover {
+  background-color: #575757;
+  color: #fff;
+  transform: scale(1.1); /* 확대 효과 */
+}
